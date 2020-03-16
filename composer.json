@@ -21,7 +21,8 @@
         "laravel/framework": "^7.0",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.0",
-        "ccuffs/auth-iduffs": "dev-master"
+        "ccuffs/auth-iduffs": "dev-master",
+        "paragonie/paseto": "^1.0.3"
     },
     "require-dev": {
         "facade/ignition": "^2.0",
