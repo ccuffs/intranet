@@ -18,6 +18,16 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('uid')->unique();
             $table->string('email')->unique();
+            $table->string('enrollment_id')->nullable();
+            $table->text('bio')->nullable();
+            $table->string('google')->nullable();
+            $table->string('github')->nullable();
+            $table->string('twitter')->nullable();
+            $table->string('facebook')->nullable();
+            $table->string('instagram')->nullable();
+            $table->string('linkedin')->nullable();
+            $table->string('lattes')->nullable();
+            $table->string('website')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

@@ -19,9 +19,18 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
     public function update($user, array $input)
     {
         Validator::make($input, [
-            'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
             'photo' => ['nullable', 'image', 'max:1024'],
+            'enrollment_id' => ['nullable', 'string', 'max:255'],
+            'bio' => ['nullable', 'text'],
+            'google' => ['nullable', 'string', 'max:255'],
+            'github' => ['nullable', 'string', 'max:255'],
+            'twitter' => ['nullable', 'string', 'max:255'],
+            'facebook' => ['nullable', 'string', 'max:255'],
+            'instagram' => ['nullable', 'string', 'max:255'],
+            'linkedin' => ['nullable', 'string', 'max:255'],
+            'lattes' => ['nullable', 'string', 'max:255'],
+            'website' => ['nullable', 'string', 'max:255']
         ])->validateWithBag('updateProfileInformation');
 
         if (isset($input['photo'])) {
@@ -33,8 +42,17 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
             $this->updateVerifiedUser($user, $input);
         } else {
             $user->forceFill([
-                'name' => $input['name'],
                 'email' => $input['email'],
+                'enrollment_id' => $input['enrollment_id'],
+                'bio' => $input['bio'],
+                'google' => $input['google'],
+                'github' => $input['github'],
+                'twitter' => $input['twitter'],
+                'facebook' => $input['facebook'],
+                'instagram' => $input['instagram'],
+                'linkedin' => $input['linkedin'],
+                'lattes' => $input['lattes'],
+                'website' => $input['website']
             ])->save();
         }
     }

@@ -1,10 +1,10 @@
 <x-jet-form-section submit="updateProfileInformation">
     <x-slot name="title">
-        {{ __('Informações pessoais') }}
+        {{ __('Informações de perfil') }}
     </x-slot>
 
     <x-slot name="description">
-        {{ __('Essas informações são utilizadas primariamente para agregar dados à sua conta, como atividade no Github. Também usamos essas informações para manter contato com nossos ex-alunos.') }}
+        {{ __('Informações divulgadas publicamente ou para outros usuários de sistemas do curso.') }}
     </x-slot>
 
     <x-slot name="form">
@@ -52,18 +52,67 @@
             </div>
         @endif
 
-        <!-- Name -->
+        <!-- bio -->
         <div class="col-span-6 sm:col-span-4">
-            <x-jet-label for="name" value="{{ __('Nome') }}" />
-            <x-jet-input id="name" type="text" class="mt-1 block w-full" wire:model.defer="state.name" autocomplete="name" />
-            <x-jet-input-error for="name" class="mt-2" />
+            <x-jet-label for="bio" value="{{ __('E-mail') }}" />
+            <x-jet-input id="bio" type="text" class="mt-1 block w-full" wire:model.defer="state.bio" />
+            <x-jet-input-error for="bio" class="mt-2" />
         </div>
 
-        <!-- Email -->
+        <!-- github -->
         <div class="col-span-6 sm:col-span-4">
-            <x-jet-label for="email" value="{{ __('E-mail') }}" />
-            <x-jet-input id="email" type="email" class="mt-1 block w-full" wire:model.defer="state.email" />
-            <x-jet-input-error for="email" class="mt-2" />
+            <x-jet-label for="github" value="{{ __('Github') }}" />
+            <x-jet-input id="github" type="text" class="mt-1 block w-full" wire:model.defer="state.github" />
+            <x-jet-input-error for="github" class="mt-2" />
+        </div>
+
+        <!-- google -->
+        <div class="col-span-6 sm:col-span-4">
+            <x-jet-label for="google" value="{{ __('Google/Gmail') }}" />
+            <x-jet-input id="google" type="text" class="mt-1 block w-full" wire:model.defer="state.google" />
+            <x-jet-input-error for="google" class="mt-2" />
+        </div>
+
+        <!-- twitter -->
+        <div class="col-span-6 sm:col-span-4">
+            <x-jet-label for="twitter" value="{{ __('Twitter') }}" />
+            <x-jet-input id="twitter" type="text" class="mt-1 block w-full" wire:model.defer="state.twitter" />
+            <x-jet-input-error for="twitter" class="mt-2" />
+        </div>
+
+        <!-- facebook -->
+        <div class="col-span-6 sm:col-span-4">
+            <x-jet-label for="facebook" value="{{ __('Facebook') }}" />
+            <x-jet-input id="facebook" type="text" class="mt-1 block w-full" wire:model.defer="state.facebook" />
+            <x-jet-input-error for="facebook" class="mt-2" />
+        </div>
+
+        <!-- instagram -->
+        <div class="col-span-6 sm:col-span-4">
+            <x-jet-label for="instagram" value="{{ __('Instagram') }}" />
+            <x-jet-input id="instagram" type="text" class="mt-1 block w-full" wire:model.defer="state.instagram" />
+            <x-jet-input-error for="instagram" class="mt-2" />
+        </div>
+
+        <!-- linkedin -->
+        <div class="col-span-6 sm:col-span-4">
+            <x-jet-label for="linkedin" value="{{ __('LinkedIn') }}" />
+            <x-jet-input id="linkedin" type="text" class="mt-1 block w-full" wire:model.defer="state.linkedin" />
+            <x-jet-input-error for="linkedin" class="mt-2" />
+        </div>
+
+        <!-- lattes -->
+        <div class="col-span-6 sm:col-span-4">
+            <x-jet-label for="lattes" value="{{ __('Currículo Lattes') }}" />
+            <x-jet-input id="lattes" type="text" class="mt-1 block w-full" wire:model.defer="state.lattes" />
+            <x-jet-input-error for="lattes" class="mt-2" />
+        </div>
+
+        <!-- website -->
+        <div class="col-span-6 sm:col-span-4">
+            <x-jet-label for="website" value="{{ __('Website pessoal') }}" />
+            <x-jet-input id="website" type="text" class="mt-1 block w-full" wire:model.defer="state.website" />
+            <x-jet-input-error for="website" class="mt-2" />
         </div>
     </x-slot>
 

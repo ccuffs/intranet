@@ -28,6 +28,16 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'enrollment_id',
+        'bio',
+        'google',
+        'github',
+        'twitter',
+        'facebook',
+        'instagram',
+        'linkedin',
+        'lattes',
+        'website'
     ];
 
     /**
@@ -59,12 +69,4 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
-
-    /**
-     * Get the comments for the blog post.
-     */
-    public function links()
-    {
-        return $this->hasMany(Link::class);
-    }
 }
