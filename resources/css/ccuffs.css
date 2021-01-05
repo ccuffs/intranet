@@ -5,7 +5,9 @@
     --ccuffs-bg: #343433;
     --ccuffs-bg-light: #424242;
     --ccuffs-bg-strong: #2a2a2a;
+    --ccuffs-bg-ui: #21262D;
     --ccuffs-line: #717081;
+    --ccuffs-line-ui: #30363D;
 }
 
 /** Background */
@@ -34,6 +36,10 @@
     background-color: var(--ccuffs-tertiary);
 }
 
+.bg-ccuffs-ui {
+    background-color: var(--ccuffs-bg-ui);
+}
+
 /** Text */
 
 .text-ccuffs-primary {
@@ -60,4 +66,8 @@
 
 .border-ccuffs-tertiary {
     border-color: var(--ccuffs-tertiary);
+}
+
+.border-ccuffs-ui {
+    border-color: var(--ccuffs-line-ui);
 }
