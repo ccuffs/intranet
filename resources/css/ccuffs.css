@@ -1,0 +1,63 @@
+:root {
+    --ccuffs-primary: #71C9B8;
+    --ccuffs-secondary: #FCAE17;
+    --ccuffs-tertiary: #F0556B;
+    --ccuffs-bg: #343433;
+    --ccuffs-bg-light: #424242;
+    --ccuffs-bg-strong: #2a2a2a;
+    --ccuffs-line: #717081;
+}
+
+/** Background */
+
+.bg-ccuffs {
+    background-color: var(--ccuffs-bg);
+}
+
+.bg-ccuffs-light {
+    background-color: var(--ccuffs-bg-light);
+}
+
+.bg-ccuffs-strong {
+    background-color: var(--ccuffs-bg-strong);
+}
+
+.bg-ccuffs-primary {
+    background-color: var(--ccuffs-primary);
+}
+
+.bg-ccuffs-secondary {
+    background-color: var(--ccuffs-secondary);
+}
+
+.bg-ccuffs-tertiary {
+    background-color: var(--ccuffs-tertiary);
+}
+
+/** Text */
+
+.text-ccuffs-primary {
+    color: var(--ccuffs-primary);
+}
+
+.text-ccuffs-secondary {
+    color: var(--ccuffs-secondary);    
+}
+
+.text-ccuffs-tertiary {
+    color: var(--ccuffs-tertiary);
+}
+
+/** Border */
+
+.border-ccuffs-primary {
+    border-color: var(--ccuffs-primary);
+}
+
+.border-ccuffs-secondary {
+    border-color: var(--ccuffs-secondary);    
+}
+
+.border-ccuffs-tertiary {
+    border-color: var(--ccuffs-tertiary);
+}

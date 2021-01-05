@@ -17,8 +17,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/login', 'Auth\LoginController@index')->name('login');
-Route::post('/login', 'Auth\LoginController@auth');
-Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
-
-Route::get('/home', 'HomeController@index')->name('home');
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');
