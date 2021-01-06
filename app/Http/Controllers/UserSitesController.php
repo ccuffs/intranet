@@ -37,7 +37,8 @@ class UserSitesController extends Controller
 
         return view('sites.show', [
             'request' => $request,
-            'sites' =>$user->sites(),
+            'available' => !empty($user->github),
+            'sites' => $user->sites(),
             'user' => $request->user(),
         ]);
     }

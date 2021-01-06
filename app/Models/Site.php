@@ -27,6 +27,16 @@ class Site extends Model
     ];
 
     /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'enabled' => 'boolean',
+        'allowed' => 'boolean'
+    ];
+
+    /**
      * Usuário dono desse site
      */
     public function user()

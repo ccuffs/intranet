@@ -21,14 +21,22 @@ class Toggle extends Component
     public $label;
 
     /**
+     * If the toggle is checked or not
+     *
+     * @var string
+     */
+    public $checked;
+
+    /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($name, $label = '')
+    public function __construct($name, $label = '', $checked = '')
     {
         $this->name = $name;
         $this->label = $label;
+        $this->checked = $checked;
     }
 
     /**
