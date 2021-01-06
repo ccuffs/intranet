@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UserSitesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,6 +13,14 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::group(['middleware' => ['web']], function () {
+    Route::group(['middleware' => ['auth', 'verified']], function () {
+        // Sites
+        Route::get('/user/sites', [UserSitesController::class, 'show'])
+                    ->name('sites.show');
+    });
+});
 
 Route::get('/', function () {
     return view('welcome');
