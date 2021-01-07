@@ -34,9 +34,19 @@
                         </form>
                     </div>
 
-                    <div class="mt-8 text-gray-400">
-                        Para utilizar os sites pessoais do curso, você precisa informar seu <a href="https://github.com" class="underline">Github</a> nas <a href="{{ route('profile.show') }}" class="underline">Informações de perfil</a> das Configurações da sua conta.
-                        Se você ainda não tem uma conta no <a href="https://github.com" class="underline">Github</a>, ela é grátil e muito útil. Você pode salvar suas atividades acadêmicas lá, que servirão como um portifólio online (além da página maravilhosa que você terá no site do curso ;).
+                    <div class="mt-8 text-gray-200 text-lg font-semibold">
+                        <x-fas-arrow-alt-circle-right class="w-7 h-7 float-left mr-2" /> Siga o desenvolvimento
+                    </div>
+
+                    <div class="mt-3 text-gray-400">
+                        <p>A assistente virtual do curso ainda está em desenvolvimento. Ela é baseada em tecnologias web, machine learning, inteligência artificial e visão computacional. Se você se interessa por esses assuntos, talvez queira <a href="https://github.com/ccuffs/aura" class="underline">contribuir com a criação de nossa assistente</a>.</p>
+                        <p class="mt-2">O desenvolvimento é open-source e feito no Github. Qualquer ajuda, seja documentação, código, design, ideias, enfim é bem-vinda!</p>
+                    </div>
+
+                    <div class="mt-8 text-green-300">
+                        <a href="https://github.com/ccuffs/aura" class="hover:underline">
+                            <x-fab-github class="w-6 h-6 float-left mr-2" /> ccuffs/aura
+                        </a>
                     </div>
                 </div>
             </div>
