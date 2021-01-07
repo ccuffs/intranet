@@ -33,7 +33,8 @@ class Site extends Model
      */
     protected $casts = [
         'enabled' => 'boolean',
-        'allowed' => 'boolean'
+        'allowed' => 'boolean',
+        'fetched_at' => 'datetime',
     ];
 
     /**
