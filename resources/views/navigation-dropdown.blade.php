@@ -19,6 +19,10 @@
                     <x-jet-nav-link href="{{ route('sites.show') }}" :active="request()->routeIs('sites.show')">
                         {{ __('Sites') }}
                     </x-jet-nav-link>
+
+                    <x-jet-nav-link href="{{ route('aura.show') }}" :active="request()->routeIs('aura.show')">
+                        {{ __('Aura') }}
+                    </x-jet-nav-link>
                 </div>
             </div>
 

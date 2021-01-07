@@ -1,0 +1,270 @@
+/* https://codepen.io/liamj/pen/vYYLGZj */
+
+:root {
+    --rad: .7rem;
+    --dur: .3s;
+    --color-dark: #2f2f2f;
+    --color-light: #fff;
+    --color-brand: #57bd84;
+    --font-fam: "Lato", sans-serif;
+    --height: 3rem;
+    --btn-width: 6rem;
+    --bez: cubic-bezier(0, 0, 0.4, 0.8);
+}
+
+.aura-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 10vh;
+    margin-bottom: 10em;
+}
+
+.aura-container form {
+    position: relative;
+    width: 30rem;
+    border-radius: var(--rad);
+}
+
+.aura-container input, .aura-container button {
+    height: var(--height);
+    font-family: var(--font-fam);
+    border: 0;
+    color: var(--color-dark);
+    font-size: 1.2rem;
+}
+
+.aura-container input[type=search] {
+    outline: 0;
+    width: 100%;
+    background: var(--color-light);
+    padding: 0 1.6rem;
+    border-radius: var(--rad);
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    transition: all var(--dur) var(--bez);
+    transition-property: width, border-radius;
+    z-index: 1;
+    position: relative;
+}
+
+.aura-container button {
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: var(--btn-width);
+    font-weight: bold;
+    background: var(--ccuffs-primary);
+    border-radius: 0 var(--rad) var(--rad) 0;
+}
+
+.aura-container input:not(:-moz-placeholder-shown) {
+    border-radius: var(--rad) 0 0 var(--rad);
+    width: calc(100% - var(--btn-width));
+}
+
+.aura-container input:not(:-ms-input-placeholder) {
+    border-radius: var(--rad) 0 0 var(--rad);
+    width: calc(100% - var(--btn-width));
+}
+
+.aura-container input:not(:placeholder-shown) {
+    border-radius: var(--rad) 0 0 var(--rad);
+    width: calc(100% - var(--btn-width));
+}
+
+.aura-container input:not(:-moz-placeholder-shown)+button {
+    display: block;
+}
+
+.aura-container input:not(:-ms-input-placeholder)+button {
+    display: block;
+}
+
+.aura-container input:not(:placeholder-shown)+button {
+    display: block;
+}
+
+.aura-container label {
+    position: absolute;
+    clip: rect(1px, 1px, 1px, 1px);
+    padding: 0;
+    border: 0;
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+}
+
+/* https://codepen.io/FUGU22/pen/RgBydE  */
+
+.aura-container .container {
+    position: relative;
+}
+
+.aura-container .main {
+    position: relative;
+    border: 2px solid #5F8FA4;
+    height: 25px;
+    background: #B1BEC6;
+    width: 190px;
+    border-radius: 50px;
+    padding-left: 31px;
+    padding-right: 11px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    font-size: 13px;
+    color: #555;
+}
+
+.aura-container .main:focus {
+    outline: none;
+}
+
+.aura-container .searchicon {
+    position: absolute;
+    height: 12px;
+    width: 12px;
+    background: transparent;
+    border: 3px solid #5F8FA4;
+    left: 10px;
+    top: 8px;
+    border-radius: 100%;
+}
+
+.aura-container .searchicon:after {
+    content: "";
+    position: absolute;
+    background: #5F8FA4;
+    height: 6px;
+    width: 3px;
+    bottom: -5px;
+    right: -3px;
+    transform: rotate(-45deg);
+}
+
+.aura-container .icon-holder {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 7px;
+}
+
+.aura-container .icon {
+    position: relative;
+    height: 35px;
+    width: 35px;
+    background: var(--ccuffs-primary);
+    border-radius: 100%;
+    box-shadow: 0px 1px 2px 0px #555;
+    cursor: pointer;
+    opacity: 0;
+    transition: 0.4s;
+}
+
+.aura-container .icon:hover {
+    background: #70c5ed;
+    animation-play-state: paused;
+}
+
+.aura-container #gas:after {
+    content: "";
+    position: absolute;
+    height: 15px;
+    width: 12px;
+    background: white;
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+    top: 9px;
+    left: 11px;
+}
+
+.aura-container #gas:before {
+    content: "";
+    position: absolute;
+    height: 6px;
+    width: 8px;
+    background: var(--ccuffs-primary);
+    left: 13px;
+    top: 11px;
+    z-index: 1;
+}
+
+.aura-container .base {
+    position: absolute;
+    background: white;
+    width: 16px;
+    height: 4px;
+    top: 23px;
+    left: 9px;
+    border-radius: 2px;
+}
+
+.aura-container .base:after {
+    content: "";
+    position: absolute;
+    height: 10px;
+    width: 10px;
+    border-radius: 100%;
+    border-left: 2px solid white;
+    bottom: 4px;
+    left: -1px;
+}
+
+.aura-container input:focus~.icon-holder>.icon {
+    animation: ani 2.2s ease-out infinite;
+}
+
+@keyframes ani {
+    0% {
+        opacity: 1;
+    }
+    10% {
+        transform: scale(1.2);
+        opacity: 1;
+    }
+    20% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.aura-container #gas {
+    animation-delay: 0.1s;
+}
+
+.aura-container #misc {
+    animation-delay: 0.4s;
+}
+
+.aura-container .tooltip {
+    opacity: 0;
+    position: absolute;
+    font-size: 12px;
+    color: white;
+    background: #555;
+    padding: 8px;
+    top: 15px;
+    border-radius: 15%;
+    top: 45px;
+}
+
+.aura-container .tooltip:after {
+    content: "";
+    position: absolute;
+    background: #555;
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    height: 18px;
+    width: 18px;
+    top: -10px;
+    left: 7px;
+}
+
+.aura-container .icon:hover > .tooltip {
+    animation: ani 0.4s ease-out forwards;
+    animation-delay: 0.3s;
+}

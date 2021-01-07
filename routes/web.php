@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\UserSitesController;
+use App\Http\Controllers\AuraController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,6 +20,10 @@ Route::group(['middleware' => ['web']], function () {
         // Sites
         Route::get('/user/sites', [UserSitesController::class, 'show'])
                     ->name('sites.show');
+
+        // Aura
+        Route::get('/aura', [AuraController::class, 'show'])
+                    ->name('aura.show');
     });
 });
 
