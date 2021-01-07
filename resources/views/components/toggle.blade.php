@@ -10,6 +10,10 @@
         transform: translateX(100%);
         background-color: #48bb78;
     }
+
+    input:checked ~ .toggle__line {
+        background-color: #b5c9b1;
+    }
 </style>
 
 <div>
@@ -24,6 +28,6 @@
             <div class="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow inset-y-0 left-0"></div>
         </div>
         <!-- label -->
-        <div class="ml-3 text-gray-400">{{ $label }}{{ $slot }}</div>
+        <div class="ml-3 text-gray-400">{{ $checked ? $label : $slot }}</div>
     </label>
 </div>
