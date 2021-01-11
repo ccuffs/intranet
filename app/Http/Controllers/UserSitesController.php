@@ -26,10 +26,7 @@ class UserSitesController extends Controller
                 'allowed' => true,
                 'serve_url' => '',
                 'source_url' => '',
-                'source_type' => '',
-                'fetch_status' => 0,
-                'fetch_error' => '',
-                'fetched_at' => Carbon::now()
+                'source_type' => ''
             ]);
 
             $user->sites()->save($site);

@@ -21,9 +21,6 @@ class CreateSitesTable extends Migration
             $table->text('serve_url');
             $table->text('source_url');
             $table->string('source_type', 100);
-            $table->integer('fetch_status')->nullable();
-            $table->text('fetch_error')->nullable();
-            $table->timestamp('fetched_at')->index();
             $table->timestamps();
         });
     }

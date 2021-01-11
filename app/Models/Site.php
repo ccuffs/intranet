@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Http;
 
 class Site extends Model
 {
@@ -20,10 +21,7 @@ class Site extends Model
         'allowed',
         'serve_url',
         'source_url',
-        'source_type',
-        'fetch_status',
-        'fetch_error',
-        'fetched_at'
+        'source_type'
     ];
 
     /**
@@ -33,8 +31,7 @@ class Site extends Model
      */
     protected $casts = [
         'enabled' => 'boolean',
-        'allowed' => 'boolean',
-        'fetched_at' => 'datetime',
+        'allowed' => 'boolean'
     ];
 
     /**
@@ -44,4 +41,15 @@ class Site extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    /**
+     * Informações sobre o build desse website.
+     */
+    public function buildInfo()
+    {
+        $url_fmt = config('sites.api_status_url');
+        $url = sprintf($url_fmt, $this->id);
+        
+        return Http::get($url)->json();
+    }    
 }
