@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\UserSitesController;
 use App\Http\Controllers\AuraController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\URL;
 
@@ -32,7 +33,11 @@ Route::group(['middleware' => ['web']], function () {
 });
 
 Route::get('/', function () {
-    return view('welcome');
+    if (Auth::check()) {
+        return redirect(config('fortify.home'));
+    } else {
+        return view('auth.login');
+    }
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
