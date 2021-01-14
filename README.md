@@ -26,8 +26,14 @@ Aqui você pode colocar uma screenshot do produto resultante desse projeto. Desc
 Geralmente o primeiro passo para começar é instalar dependências para rodar o projeto. Rode:
 
 ```
-apt get install dependencia
+php artisan vendor:publish --tag=livewire:assets
 ```
+
+https://github.com/livewire/livewire/issues/1216#issuecomment-674463055:
+
+/vendor/livewire/livewire/src/Controllers/FilePreviewHandler.php
+/vendor/livewire/livewire/src/Controllers/FileUploadHandler.php
+
 
 Recomenda-se que cada comando seja colocado em uma linha diferente:
 
