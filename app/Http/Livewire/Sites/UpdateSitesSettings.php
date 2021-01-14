@@ -31,6 +31,9 @@ class UpdateSitesSettings extends Component
 
     public function updated()
     {
+        $this->site->serve_url = $this->user->uid;
+        $this->site->source_type = 'git';
+        $this->site->source_url = 'https://github.com/' . escapeshellarg($this->user->github) . '/ccuffs-site';
         $this->site->save();
         $this->emit('saved');
     }
