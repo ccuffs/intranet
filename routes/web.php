@@ -3,6 +3,7 @@
 use App\Http\Controllers\UserSitesController;
 use App\Http\Controllers\AuraController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\URL;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +15,9 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+// Fix wrong style/mix urls when being served from reverse proxy
+URL::forceRootUrl(config('app.url'));
 
 Route::group(['middleware' => ['web']], function () {
     Route::group(['middleware' => ['auth', 'verified']], function () {

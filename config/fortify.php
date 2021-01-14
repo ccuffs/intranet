@@ -61,7 +61,7 @@ return [
     |
     */
 
-    'home' => RouteServiceProvider::HOME,
+    'home' => config('app.base') . '/dashboard',
 
     /*
     |--------------------------------------------------------------------------
