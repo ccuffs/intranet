@@ -68,7 +68,7 @@
                     <div class="p-6 border-t border-gray-900">
                         <div class="flex items-center">
                             <x-fas-circle-notch class="w-7 h-7 text-green-300" />
-                            <div class="ml-4 text-lg text-gray-300 leading-7 font-semibold"><a href="https://tailwindcss.com/">Assistente virtual <span class="text-gray-500 text-sm font-light">(em breve)</span></a></div>
+                            <div class="ml-4 text-lg text-gray-300 leading-7 font-semibold"><a href="{{ route('aura.show') }}">Assistente virtual <span class="text-gray-500 text-sm font-light">(em breve)</span></a></div>
                         </div>
 
                         <div class="ml-12">
