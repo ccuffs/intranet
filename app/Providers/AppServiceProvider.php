@@ -26,6 +26,5 @@ class AppServiceProvider extends ServiceProvider
     {
         // Fix wrong style/mix urls when being served from reverse proxy
         URL::forceRootUrl(config('app.url'));
-        URL::forceScheme('https');
     }
 }
