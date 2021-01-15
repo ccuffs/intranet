@@ -23,7 +23,7 @@
             <!-- Use: https://stackoverflow.com/a/48288795 -->
             <p class="text-green-300">
                 <x-fas-external-link-alt class="h-3 w-3 inline-block mr-1" />
-                <a href="https://cc.uffs.edu.br/pessoa/{{ $user->uid }}" class="font-medium text-sm hover:underline">cc.uffs.edu.br/pessoa/{{ $user->uid }}</a>
+                <a href="https://cc.uffs.edu.br/pessoa/{{ $user->uid }}/" class="font-medium text-sm hover:underline">cc.uffs.edu.br/pessoa/{{ $user->uid }}</a>
             </p>
             
             <p class="text-green-300">
