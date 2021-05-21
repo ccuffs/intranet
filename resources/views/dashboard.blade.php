@@ -76,7 +76,7 @@
                                 Já imaginou ter uma assistente virtual do curso que responda perguntas como datas importantes, horas de ACC, procedimentos da UFFS, enfim?
                             </div>
 
-                            <a href="">
+                            <a href="{{ route('aura.show') }}">
                                 <div class="mt-3 flex items-center text-sm font-semibold text-green-300">
                                     <div>Conheça a Aura</div>
 
