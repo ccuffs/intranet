@@ -9,6 +9,13 @@ use Laravel\Fortify\Contracts\UpdatesUserProfileInformation;
 
 class UpdateUserProfileInformation implements UpdatesUserProfileInformation
 {
+    protected function removeUrlDomain($url) {
+        $re = '/^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/?\n]+)\/?/im';
+        $result = preg_replace($re, '', $url);
+
+        return $result;
+    }
+    
     /**
      * Validate and update the given user's profile information.
      *
@@ -35,6 +42,10 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
 
         if (isset($input['photo'])) {
             $user->updateProfilePhoto($input['photo']);
+        }
+
+        if (isset($input['github'])) {
+            $input['github'] = $this->removeUrlDomain($input['github']);
         }
 
         if ($input['email'] !== $user->email &&
