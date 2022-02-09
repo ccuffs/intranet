@@ -14,10 +14,10 @@ A intranet é um sistema cujo principal objetivo é prover serviços digitais pa
 
 A intranet possui um conjunto modesto de features:
 
--   Autenticação a partir do idUFFS;
--   Controle de páginas pessoais (tipo Github Pages);
--   Acesso à assistente virtual do curso;
--   Informações de perfil;
+* Autenticação a partir do idUFFS;
+* Controle de páginas pessoais (tipo Github Pages);
+* Acesso à assistente virtual do curso;
+* Informações de perfil;
 
 ![Página inicial da intranet](.github/intranet-cc.png)
 
@@ -27,13 +27,13 @@ A intranet possui um conjunto modesto de features:
 
 Para executar o projeto, você precisa ter o seguinte instalado (preceisa `php >= 8.0`).:
 
--   [Git](https://git-scm.com);
--   [PHP 8.x](https://www.php.net/downloads);
--   [Composer](https://getcomposer.org/download/);
--   [NodeJS](https://nodejs.org/en/);
--   [NPM](https://www.npmjs.com/package/npm);
+- [Git](https://git-scm.com);
+- [PHP 8.x](https://www.php.net/downloads);
+- [Composer](https://getcomposer.org/download/);
+- [NodeJS](https://nodejs.org/en/);
+- [NPM](https://www.npmjs.com/package/npm);
 
-> _IMPORTANTE:_ se sua distribuição linux não tem PHP 8.x disponível, rode `sudo add-apt-repository ppa:ondrej/php` antes de começar.
+>*IMPORTANTE:* se sua distribuição linux não tem PHP 8.x disponível, rode `sudo add-apt-repository ppa:ondrej/php` antes de começar.
 
 Você precisa de várias extensões PHP instaladas também:
 
@@ -104,7 +104,7 @@ Gere os recursos JavaScript e CSS:
 npm run dev
 ```
 
-> _DICA:_ enquanto estiver desenvolvendo, rode `npm run watch` para manter os scripts javascript sendo gerados sob demanda quando alterados.
+>*DICA:* enquanto estiver desenvolvendo, rode `npm run watch` para manter os scripts javascript sendo gerados sob demanda quando alterados.
 
 Por fim, garanta que o storage do Laravel está disponível para acesso web:
 
@@ -122,13 +122,14 @@ Depois de seguir todos os passos de instalação, inicie o servidor do Laravel:
 php artisan serve
 ```
 
-Após isso a aplicação estará rodando na porta `8000` e poderá ser acessada em [localhost:8000](http://localhost:8000).
+Após isso a aplicação estará rodando na porta `8080` e poderá ser acessada em [localhost:8080](http://localhost:8080).
 
 ## 🤝 Contribua
 
 Sua ajuda é muito bem-vinda, independente da forma! Confira o arquivo [CONTRIBUTING.md](CONTRIBUTING.md) para conhecer todas as formas de contribuir com o projeto. Por exemplo, [sugerir uma nova funcionalidade](https://github.com/ccuffs/intranet/issues/new?assignees=&labels=&template=feature_request.md&title=), [reportar um problema/bug](https://github.com/ccuffs/intranet/issues/new?assignees=&labels=bug&template=bug_report.md&title=), [enviar um pull request](https://github.com/ccuffs/hacktoberfest/blob/master/docs/tutorial-pull-request.md), ou simplemente utilizar o projeto e comentar sua experiência.
 
 Veja o arquivo [ROADMAP.md](ROADMAP.md) para ter uma ideia de como o projeto deve evoluir.
+
 
 ## 🎫 Licença
 
@@ -142,6 +143,6 @@ Veja todas as alterações desse projeto no arquivo [CHANGELOG.md](CHANGELOG.md)
 
 Abaixo está uma lista de links interessantes e projetos similares:
 
--   [Universidade Federal da Fronteira Sul](https://www.uffs.edu.br)
--   [API CC](https://github.com/ccuffs/api-cc)
--   [Auth idUFFS](https://github.com/ccuffs/auth-iduffs)
+* [Universidade Federal da Fronteira Sul](https://www.uffs.edu.br)
+* [API CC](https://github.com/ccuffs/api-cc)
+* [Auth idUFFS](https://github.com/ccuffs/auth-iduffs)
