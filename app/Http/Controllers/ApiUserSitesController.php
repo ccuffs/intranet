@@ -27,7 +27,7 @@ class ApiUserSitesController extends Controller
     }
 
     /**
-     * Show the user sites screen.
+     * Show the user sites that need to be updated now.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\View\View
@@ -41,5 +41,36 @@ class ApiUserSitesController extends Controller
             ->get();
 
         return Response::json($sites, 200, array(), JSON_PRETTY_PRINT);
+    }
+
+    /**
+     * Set the user's site as updated
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\View\View
+     */
+    public function updated(Request $request)
+    {
+        try {
+            DB::table('sites')
+                ->where('user_id',$request->userId)
+                ->update([
+                    "update_now"=> false,
+                    "updated_at"=> date("Y-m-d h:i:s")
+                    ]);
+
+            return Response::json([
+                'success' => true,
+                'messages' => "Site atualizado com sucesso.",
+                'errors' => null
+            ]);
+        }
+        catch (\Exception $e){
+            return Response::json([
+                'success' => false,
+                'messages' => null,
+                'errors' => "Erro: {$e->getMessage()}."
+            ]);
+        }
     }
 }

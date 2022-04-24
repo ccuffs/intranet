@@ -22,7 +22,9 @@ class Site extends Model
         'serve_url',
         'source_url',
         'source_type',
-        'update_now'
+        'update_now',
+        "created_at",
+        "updated_at"
     ];
 
     /**

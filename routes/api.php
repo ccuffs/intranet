@@ -21,6 +21,9 @@ Route::get('/sites/list.json', [ApiUserSitesController::class, 'list'])
 Route::get('/sites/listUpdateNow.json', [ApiUserSitesController::class, 'listUpdateNow'])
     ->name('api.sites.listUpdateNow');
 
+Route::patch('/sites/updated', [ApiUserSitesController::class, 'updated'])
+    ->name('api.sites.updated');
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
