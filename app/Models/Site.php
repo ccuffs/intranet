@@ -21,7 +21,8 @@ class Site extends Model
         'allowed',
         'serve_url',
         'source_url',
-        'source_type'
+        'source_type',
+        'update_now'
     ];
 
     /**
@@ -49,7 +50,7 @@ class Site extends Model
     {
         $url_fmt = config('sites.api_status_url');
         $url = sprintf($url_fmt, $this->id);
-        
+
         return Http::get($url)->json();
-    }    
+    }
 }
