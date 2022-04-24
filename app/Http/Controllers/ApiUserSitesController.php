@@ -53,7 +53,7 @@ class ApiUserSitesController extends Controller
     {
         try {
             DB::table('sites')
-                ->where('user_id',$request->userId)
+                ->where('id',$request->id)
                 ->update([
                     "update_now"=> false,
                     "updated_at"=> date("Y-m-d h:i:s")
