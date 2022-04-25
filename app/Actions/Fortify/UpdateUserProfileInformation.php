@@ -2,6 +2,7 @@
 
 namespace App\Actions\Fortify;
 
+use App\Helpers\StringHelper;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -9,13 +10,18 @@ use Laravel\Fortify\Contracts\UpdatesUserProfileInformation;
 
 class UpdateUserProfileInformation implements UpdatesUserProfileInformation
 {
-    protected function removeUrlDomain($url) {
-        $re = '/^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/?\n]+)\/?/im';
-        $result = preg_replace($re, '', $url);
+    protected function removeGitUrlDomain($user)
+    {
+        $url = $user;
+        if (StringHelper::checkIfContains($url, "https://github.com/") || StringHelper::checkIfContains($url, "https://github.com/")) {
+            $user = StringHelper::getText("/github.com\/(.*)/i", $url);
+        }
 
-        return $result;
+        $user = str_replace("/", "", $user);
+
+        return $user;
     }
-    
+
     /**
      * Validate and update the given user's profile information.
      *
@@ -37,7 +43,7 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
             'instagram' => ['nullable', 'string', 'max:255'],
             'linkedin' => ['nullable', 'string', 'max:255'],
             'lattes' => ['nullable', 'string', 'max:255'],
-            'website' => ['nullable', 'string', 'max:255']
+            'website' => ['nullable', 'string', 'max:255'],
         ])->validateWithBag('updateProfileInformation');
 
         if (isset($input['photo'])) {
@@ -45,7 +51,7 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
         }
 
         if (isset($input['github'])) {
-            $input['github'] = $this->removeUrlDomain($input['github']);
+            $input['github'] = $this->removeGitUrlDomain($input['github']);
         }
 
         if ($input['email'] !== $user->email &&
@@ -63,7 +69,7 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
                 'instagram' => $input['instagram'],
                 'linkedin' => $input['linkedin'],
                 'lattes' => $input['lattes'],
-                'website' => $input['website']
+                'website' => $input['website'],
             ])->save();
         }
     }
