@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Jobs\ScrapForCertificates;
+use App\Models\User;
 use Illuminate\Console\Command;
 
 class ScrapForCertificatesCommand extends Command
@@ -19,7 +20,7 @@ class ScrapForCertificatesCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Scraping for certificates';
 
     /**
      * Create a new command instance.
@@ -38,7 +39,10 @@ class ScrapForCertificatesCommand extends Command
      */
     public function handle()
     {
-        ScrapForCertificates::dispatchSync(1);
+        $users = User::all();
 
+        foreach ($users as $user) {
+            ScrapForCertificates::dispatchSync($user->id);
+        }
     }
 }

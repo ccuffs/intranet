@@ -50,11 +50,12 @@ class ScrapForCertificates implements ShouldQueue
         $options = ['headers' => ['Accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9', 'Content-Type' => 'application/x-www-form-urlencoded'], 'form_params' => $body];
 
         $response = $this->client->post("https://sgce.uffs.edu.br/certificados/listaCertificadosPublicosPorNome", $options);
-        dump("https://sgce.uffs.edu.br/certificados/listaCertificadosPublicosPorNome");
 
         $dom = HtmlDomParser::str_get_html($response->getBody());
 
-        if (StringHelper::checkIfContains($dom->find("div[class=center_table]", 0)->innertext(), "Último")) {
+        if (StringHelper::checkIfContains($dom->getElementById("data_table")->innertext(), "Não foram encontrados certificados válidos para emissão")) {
+            return;
+        } else if (!StringHelper::checkIfContains($dom->find("div[class=center_table]", 0)->innertext(), "Último")) {
             $this->readPage($dom);
         } else {
             $this->readPage($dom);
@@ -74,7 +75,6 @@ class ScrapForCertificates implements ShouldQueue
                 $options = ['headers' => ['Accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9', 'Content-Type' => 'application/x-www-form-urlencoded'], 'form_params' => $body];
 
                 $response = $this->client->post("https://sgce.uffs.edu.br/certificados/listaCertificadosPublicosPorNome/{$urlComplement}", $options);
-                dump("https://sgce.uffs.edu.br/certificados/listaCertificadosPublicosPorNome/{$urlComplement}");
                 $dom = HtmlDomParser::str_get_html($response->getBody());
 
                 $this->readPage($dom);
