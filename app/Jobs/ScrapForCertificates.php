@@ -11,6 +11,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\DB;
 use KubAT\PhpSimple\HtmlDomParser;
 
 class ScrapForCertificates implements ShouldQueue
@@ -55,17 +56,27 @@ class ScrapForCertificates implements ShouldQueue
 
         $array = [];
 
+        $certificatesDB = DB::select("select * from certificates where (user_id={$user->id})");
+
         foreach ($table->children as $row) {
+            $shouldSave = true;
             if ($row->getAttribute("id") != null) {
-                $certificate = Certificate::create([
-                    'user_id' => $user->id,
-                    'certificate_type' => $row->children[1]->innertext(),
-                    'event' => $row->children[2]->innertext(),
-                    'date' => $row->children[3]->innertext(),
-                    'hours' => $row->children[4]->innertext(),
-                    'link' => StringHelper::getText('/<a href\="(.*?)">/i', $row->children[5]->innertext()),
-                ]);
-                $user->certificates()->save($certificate);
+                foreach ($certificatesDB as $certificateDB) {
+                    if ($row->children[2]->innertext() == $certificateDB->event) {
+                        $shouldSave = false;
+                    }
+                }
+                if ($shouldSave) {
+                    $certificate = Certificate::create([
+                        'user_id' => $user->id,
+                        'certificate_type' => $row->children[1]->innertext(),
+                        'event' => $row->children[2]->innertext(),
+                        'date' => $row->children[3]->innertext(),
+                        'hours' => $row->children[4]->innertext(),
+                        'link' => StringHelper::getText('/<a href\="(.*?)">/i', $row->children[5]->innertext()),
+                    ]);
+                    $user->certificates()->save($certificate);
+                }
             }
         }
     }
