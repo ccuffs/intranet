@@ -21,6 +21,7 @@ class Certificate extends Model
         'date',
         'hours',
         'link',
+        'certificate_name',
     ];
 
     /**

@@ -20,6 +20,7 @@ class ScrapForCertificates implements ShouldQueue
 
     private $url = "https://sgce.uffs.edu.br/certificados/listaCertificadosPublicosPorNome";
     private $id;
+    private $user;
 
     /**
      * Create a new job instance.
@@ -38,25 +39,56 @@ class ScrapForCertificates implements ShouldQueue
      */
     public function handle()
     {
-        $client = new Client();
+        $this->client = new Client();
 
-        $user = User::select()->where("id", $this->id)->first();
+        $this->user = User::select()->where("id", $this->id)->first();
 
         $body = [
-            "txtNome" => $user->name,
+            "txtNome" => $this->user->name,
         ];
 
         $options = ['headers' => ['Accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9', 'Content-Type' => 'application/x-www-form-urlencoded'], 'form_params' => $body];
 
-        $response = $client->post("https://sgce.uffs.edu.br/certificados/listaCertificadosPublicosPorNome", $options);
+        $response = $this->client->post("https://sgce.uffs.edu.br/certificados/listaCertificadosPublicosPorNome", $options);
+        dump("https://sgce.uffs.edu.br/certificados/listaCertificadosPublicosPorNome");
 
         $dom = HtmlDomParser::str_get_html($response->getBody());
 
+        if (StringHelper::checkIfContains($dom->find("div[class=center_table]", 0)->innertext(), "Último")) {
+            $this->readPage($dom);
+        } else {
+            $this->readPage($dom);
+
+            $lastUrl = $dom->find("div[class=paginacao]", 0)->children[count($dom->find("div[class=paginacao]", 0)->children) - 1]->getAttribute('href');
+            $lastPage = StringHelper::getText('/listaCertificadosPublicosPorNome\/(\d+)/i', $lastUrl);
+            $lastPage = intval($lastPage);
+
+            $pages = $lastPage / 15;
+
+            for ($i = 1; $i < $pages; $i++) {
+                $urlComplement = $i * 15;
+                $body = [
+                    "txtNome" => $this->user->name,
+                ];
+
+                $options = ['headers' => ['Accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9', 'Content-Type' => 'application/x-www-form-urlencoded'], 'form_params' => $body];
+
+                $response = $this->client->post("https://sgce.uffs.edu.br/certificados/listaCertificadosPublicosPorNome/{$urlComplement}", $options);
+                dump("https://sgce.uffs.edu.br/certificados/listaCertificadosPublicosPorNome/{$urlComplement}");
+                $dom = HtmlDomParser::str_get_html($response->getBody());
+
+                $this->readPage($dom);
+            }
+        }
+    }
+
+    private function readPage($dom)
+    {
         $table = $dom->getElementById("data_table");
 
         $array = [];
 
-        $certificatesDB = DB::select("select * from certificates where (user_id={$user->id})");
+        $certificatesDB = DB::select("select * from certificates where (user_id={$this->user->id})");
 
         foreach ($table->children as $row) {
             $shouldSave = true;
@@ -68,16 +100,18 @@ class ScrapForCertificates implements ShouldQueue
                 }
                 if ($shouldSave) {
                     $certificate = Certificate::create([
-                        'user_id' => $user->id,
+                        'user_id' => $this->user->id,
                         'certificate_type' => $row->children[1]->innertext(),
                         'event' => $row->children[2]->innertext(),
                         'date' => $row->children[3]->innertext(),
                         'hours' => $row->children[4]->innertext(),
                         'link' => StringHelper::getText('/<a href\="(.*?)">/i', $row->children[5]->innertext()),
+                        'certificate_name' => $row->children[0]->innertext(),
                     ]);
-                    $user->certificates()->save($certificate);
+                    $this->user->certificates()->save($certificate);
                 }
             }
         }
+
     }
 }

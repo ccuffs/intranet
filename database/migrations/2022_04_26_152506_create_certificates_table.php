@@ -21,6 +21,7 @@ class CreateCertificatesTable extends Migration
             $table->text('date');
             $table->text('hours');
             $table->text('link');
+            $table->text('certificate_name');
             $table->timestamps();
         });
     }
