@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Helpers\StringHelper;
 use App\Models\Certificate;
 use App\Models\User;
 use GuzzleHttp\Client;
@@ -62,7 +63,7 @@ class ScrapForCertificates implements ShouldQueue
                     'event' => $row->children[2]->innertext(),
                     'date' => $row->children[3]->innertext(),
                     'hours' => $row->children[4]->innertext(),
-                    'link' => $row->children[5]->innertext(),
+                    'link' => StringHelper::getText('/<a href\="(.*?)">/i', $row->children[5]->innertext()),
                 ]);
                 $user->certificates()->save($certificate);
             }
