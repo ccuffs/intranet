@@ -10,7 +10,7 @@
             <div class="bg-ccuffs overflow-hidden sm:rounded-lg">
                 <div class="p-1 sm:px-20">
                     @if (count($data)==0)
-                        <p class="mt-3 text-gray-400" >Não foram encontrados certificados válidos para emissão</p>
+                        <p class="mt-3 text-gray-400" >Não foram encontrados certificados válidos para emissão.</p>
                     @else
                         <table class="table table-bordered" style="text-align:left;">
                             <thead >

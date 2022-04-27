@@ -18,8 +18,7 @@ class ScrapForCertificates implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    private $url = "https://sgce.uffs.edu.br/certificados/listaCertificadosPublicosPorNome";
-    private $id;
+    private $url;
     private $user;
 
     /**
@@ -27,9 +26,10 @@ class ScrapForCertificates implements ShouldQueue
      *
      * @return void
      */
-    public function __construct($id)
+    public function __construct(User $user)
     {
-        $this->id = $id;
+        $this->user = $user;
+        $this->url = config("scraping.urlSGCE");
     }
 
     /**
@@ -41,77 +41,108 @@ class ScrapForCertificates implements ShouldQueue
     {
         $this->client = new Client();
 
-        $this->user = User::select()->where("id", $this->id)->first();
-
-        $body = [
-            "txtNome" => $this->user->name,
-        ];
-
-        $options = ['headers' => ['Accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9', 'Content-Type' => 'application/x-www-form-urlencoded'], 'form_params' => $body];
-
-        $response = $this->client->post("https://sgce.uffs.edu.br/certificados/listaCertificadosPublicosPorNome", $options);
+        $response = $this->client->post("$this->url/certificados/listaCertificadosPublicosPorNome", $this->getRequestOptions());
 
         $dom = HtmlDomParser::str_get_html($response->getBody());
 
-        if (StringHelper::checkIfContains($dom->getElementById("data_table")->innertext(), "Não foram encontrados certificados válidos para emissão")) {
-            return;
-        } else if (!StringHelper::checkIfContains($dom->find("div[class=center_table]", 0)->innertext(), "Último")) {
-            $this->readPage($dom);
+        if ($this->hasNoCertificates($dom)) {
+            $this->job->delete();
+        }
+
+        if ($this->hasOnlyOnePage($dom)) {
+            $this->getDataFromPage($dom);
         } else {
-            $this->readPage($dom);
+            $this->getDataFromPage($dom);
+            $this->getDataPaginated($dom);
+        }
+    }
 
-            $lastUrl = $dom->find("div[class=paginacao]", 0)->children[count($dom->find("div[class=paginacao]", 0)->children) - 1]->getAttribute('href');
-            $lastPage = StringHelper::getText('/listaCertificadosPublicosPorNome\/(\d+)/i', $lastUrl);
-            $lastPage = intval($lastPage);
+    private function getRequestOptions()
+    {
+        return [
+            'headers' => [
+                'Accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+                'Content-Type' => 'application/x-www-form-urlencoded'
+            ],
+            'form_params' => [
+                "txtNome" => $this->user->name,
+            ]
+        ];
+    }
 
-            $pages = $lastPage / 15;
+    private function getDataFromPage($dom)
+    {
+        $table = $dom->getElementById("data_table");
 
-            for ($i = 1; $i < $pages; $i++) {
-                $urlComplement = $i * 15;
-                $body = [
-                    "txtNome" => $this->user->name,
-                ];
+        $certificatesDB = $this->getCertificatesFromDB();
 
-                $options = ['headers' => ['Accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9', 'Content-Type' => 'application/x-www-form-urlencoded'], 'form_params' => $body];
-
-                $response = $this->client->post("https://sgce.uffs.edu.br/certificados/listaCertificadosPublicosPorNome/{$urlComplement}", $options);
-                $dom = HtmlDomParser::str_get_html($response->getBody());
-
-                $this->readPage($dom);
+        foreach ($table->children as $row) {
+            if ($this->isNotTableHeader($row)) {
+                if (!$this->hasTheSameCertificateOnDB($certificatesDB, $row)) {
+                    $this->saveCertificateOnDB($row);
+                }
             }
         }
     }
 
-    private function readPage($dom)
+    private function getDataPaginated($dom)
     {
-        $table = $dom->getElementById("data_table");
+        $lastUrl = $dom->find("div[class=paginacao]", 0)->children[count($dom->find("div[class=paginacao]", 0)->children) - 1]->getAttribute('href');
+        $lastPage = StringHelper::getText('/listaCertificadosPublicosPorNome\/(\d+)/i', $lastUrl);
+        $lastPage = intval($lastPage);
 
-        $array = [];
+        $pages = $lastPage / 15;
 
-        $certificatesDB = DB::select("select * from certificates where (user_id={$this->user->id})");
+        for ($i = 1; $i < $pages; $i++) {
+            $urlComplement = $i * 15;
+            $response = $this->client->post("{$this->url}/certificados/listaCertificadosPublicosPorNome/{$urlComplement}", $this->getRequestOptions());
+            $dom = HtmlDomParser::str_get_html($response->getBody());
 
-        foreach ($table->children as $row) {
-            $shouldSave = true;
-            if ($row->getAttribute("id") != null) {
-                foreach ($certificatesDB as $certificateDB) {
-                    if ($row->children[2]->innertext() == $certificateDB->event) {
-                        $shouldSave = false;
-                    }
-                }
-                if ($shouldSave) {
-                    $certificate = Certificate::create([
-                        'user_id' => $this->user->id,
-                        'certificate_type' => $row->children[1]->innertext(),
-                        'event' => $row->children[2]->innertext(),
-                        'date' => $row->children[3]->innertext(),
-                        'hours' => $row->children[4]->innertext(),
-                        'link' => StringHelper::getText('/<a href\="(.*?)">/i', $row->children[5]->innertext()),
-                        'certificate_name' => $row->children[0]->innertext(),
-                    ]);
-                    $this->user->certificates()->save($certificate);
-                }
+            $this->getDataFromPage($dom);
+        }
+    }
+
+    private function hasNoCertificates($dom):bool
+    {
+        return StringHelper::checkIfContains($dom->getElementById("data_table")->innertext(), "Não foram encontrados certificados válidos para emissão");
+    }
+
+    private function hasOnlyOnePage($dom):bool
+    {
+        return !StringHelper::checkIfContains($dom->find("div[class=center_table]", 0)->innertext(), "Último");
+    }
+
+    private function isNotTableHeader($row):bool
+    {
+        return $row->getAttribute("id") != null;
+    }
+
+    private function hasTheSameCertificateOnDB($certificatesDB, $row):bool
+    {
+        foreach ($certificatesDB as $certificateDB) {
+            if ($row->children[2]->innertext() == $certificateDB->event) {
+                return true;
             }
         }
+        return false;
+    }
 
+    private function saveCertificateOnDB($row):void
+    {
+        $certificate = Certificate::create([
+            'user_id' => $this->user->id,
+            'certificate_type' => $row->children[1]->innertext(),
+            'event' => $row->children[2]->innertext(),
+            'date' => $row->children[3]->innertext(),
+            'hours' => $row->children[4]->innertext(),
+            'link' => StringHelper::getText('/<a href\="(.*?)">/i', $row->children[5]->innertext()),
+            'certificate_name' => $row->children[0]->innertext(),
+        ]);
+        $this->user->certificates()->save($certificate);
+    }
+
+    private function getCertificatesFromDB()
+    {
+        return DB::select("select * from certificates where user_id={$this->user->id}");
     }
 }

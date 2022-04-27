@@ -42,7 +42,7 @@ class ScrapForCertificatesCommand extends Command
         $users = User::all();
 
         foreach ($users as $user) {
-            ScrapForCertificates::dispatchSync($user->id);
+            ScrapForCertificates::dispatchSync($user);
         }
     }
 }
