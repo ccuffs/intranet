@@ -21,8 +21,7 @@ class RuController extends Controller
 
         $res = $this->client->request('GET', "{$this->url}/campus/chapeco");
 
-        $data = json_decode($res->getBody());
-
+        $data = ($res->getStatusCode() != 200) ? null : json_decode($res->getBody());
 
         return view('ru.show', [
             "data" => $data
