@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Site;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 
