@@ -4,8 +4,6 @@ namespace App\Http\Livewire\Certificates;
 
 use App\Jobs\ScrapForCertificates;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Redirect;
 use Livewire\Component;
 
 class UpdateCertificates extends Component
