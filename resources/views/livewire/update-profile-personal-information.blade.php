@@ -18,7 +18,7 @@
         <!-- enrollment_id -->
         <div class="col-span-3 sm:col-span-2">
             <x-jet-label for="enrollment_id" value="{{ __('Matrícula') }}" />
-            <x-jet-input id="enrollment_id" type="text" class="mt-1 block w-full" wire:model.defer="state.enrollment_id" />
+            <x-jet-input id="enrollment_id" type="text" class="mt-1 block w-full" placeholder="Ex.: 20211XXXXXX" wire:model.defer="state.enrollment_id" />
             <x-jet-input-error for="enrollment_id" class="mt-2" />
         </div>
 
