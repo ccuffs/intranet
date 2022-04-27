@@ -4,9 +4,7 @@ namespace App\Http\Livewire\Sites;
 
 use App\Models\Site;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Laravel\Fortify\Contracts\UpdatesUserProfileInformation;
 use Livewire\Component;
 
 class UpdateSitesSettings extends Component
@@ -43,5 +41,17 @@ class UpdateSitesSettings extends Component
     public function render()
     {
         return view('livewire.sites.update-sites-settings');
+    }
+
+    /**
+     * Sets the site to update now
+     *
+     * @return void
+     */
+    public function updateSite(){
+
+        $this->site->update_now = true;
+        $this->site->save();
+        $this->emit('saved');
     }
 }
