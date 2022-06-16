@@ -49,6 +49,9 @@
                             Tudo certo
                         </p>
                         <p class="mt-1">Não há problemas com essa página. A última vez que a página foi atualizada a partir da fonte de conteúdo foi em {{ date('d/m/Y H:i:s', $site->buildInfo()['time']) }}.</p>
+                        <x-jet-button type="button" class="mt-2" wire:click="updateSite">
+                            {{ __('Atualizar Site') }}
+                        </x-jet-button>
                     @else
                         <p class="text-red-400 font-bold">
                             <x-fas-exclamation-circle class="h-4 w-4  inline-block mr-1" />
