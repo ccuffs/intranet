@@ -18,7 +18,7 @@
 
                         <div class="mt-6 text-gray-800">
                             Para utilizar os sites pessoais do curso, você precisa informar seu <a href="https://github.com" class="underline">Github</a> nas <a href="{{ route('profile.show') }}" class="underline">Informações de perfil</a> das Configurações da sua conta.
-                            Se você ainda não tem uma conta no <a href="https://github.com" class="underline">Github</a>, ela é grátil e muito útil. Você pode salvar suas atividades acadêmicas lá, que servirão como um portifólio online (além da página maravilhosa que você terá no site do curso ;).
+                            Se você ainda não tem uma conta no <a href="https://github.com" class="underline">Github</a>, ela é grátis e muito útil. Você pode salvar suas atividades acadêmicas lá, que servirão como um portifólio online (além da página maravilhosa que você terá no site do curso ;).
                         </div>
                     </div>
                 </div>

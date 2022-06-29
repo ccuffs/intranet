@@ -62,42 +62,42 @@
         <!-- github -->
         <div class="col-span-3 sm:col-span-2">
             <x-jet-label for="github" value="{{ __('Github') }}" />
-            <x-jet-input id="github" type="text" class="mt-1 block w-full" wire:model.defer="state.github" />
+            <x-jet-input id="github" type="text" class="mt-1 block w-full" placeholder="Ex.: meuGithub" wire:model.defer="state.github" />
             <x-jet-input-error for="github" class="mt-2" />
         </div>
 
         <!-- linkedin -->
         <div class="col-span-3 sm:col-span-2">
             <x-jet-label for="linkedin" value="{{ __('LinkedIn') }}" />
-            <x-jet-input id="linkedin" type="text" class="mt-1 block w-full" wire:model.defer="state.linkedin" />
+            <x-jet-input id="linkedin" type="text" class="mt-1 block w-full" placeholder="Ex.: meuLinkedin" wire:model.defer="state.linkedin" />
             <x-jet-input-error for="linkedin" class="mt-2" />
         </div>
 
         <!-- google -->
         <div class="col-span-3 sm:col-span-2">
             <x-jet-label for="google" value="{{ __('Google/Gmail') }}" />
-            <x-jet-input id="google" type="text" class="mt-1 block w-full" wire:model.defer="state.google" />
+            <x-jet-input id="google" type="text" class="mt-1 block w-full" placeholder="Ex.: exemplo@exemplo.com" wire:model.defer="state.google" />
             <x-jet-input-error for="google" class="mt-2" />
         </div>
 
         <!-- twitter -->
         <div class="col-span-3 sm:col-span-2">
             <x-jet-label for="twitter" value="{{ __('Twitter') }}" />
-            <x-jet-input id="twitter" type="text" class="mt-1 block w-full" wire:model.defer="state.twitter" />
+            <x-jet-input id="twitter" type="text" class="mt-1 block w-full" placeholder="Ex.: meuTwitter" wire:model.defer="state.twitter" />
             <x-jet-input-error for="twitter" class="mt-2" />
         </div>
 
         <!-- facebook -->
         <div class="col-span-3 sm:col-span-2">
             <x-jet-label for="facebook" value="{{ __('Facebook') }}" />
-            <x-jet-input id="facebook" type="text" class="mt-1 block w-full" wire:model.defer="state.facebook" />
+            <x-jet-input id="facebook" type="text" class="mt-1 block w-full" placeholder="Ex.: meuFacebook" wire:model.defer="state.facebook" />
             <x-jet-input-error for="facebook" class="mt-2" />
         </div>
 
         <!-- instagram -->
         <div class="col-span-3 sm:col-span-2">
             <x-jet-label for="instagram" value="{{ __('Instagram') }}" />
-            <x-jet-input id="instagram" type="text" class="mt-1 block w-full" wire:model.defer="state.instagram" />
+            <x-jet-input id="instagram" type="text" class="mt-1 block w-full" placeholder="Ex.: meuInstagram" wire:model.defer="state.instagram" />
             <x-jet-input-error for="instagram" class="mt-2" />
         </div>
 

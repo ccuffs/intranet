@@ -36,7 +36,7 @@ class User extends Authenticatable
         'instagram',
         'linkedin',
         'lattes',
-        'website'
+        'website',
     ];
 
     /**
@@ -75,5 +75,10 @@ class User extends Authenticatable
     public function sites()
     {
         return $this->hasMany(Site::class);
+    }
+
+    public function certificates()
+    {
+        return $this->hasMany(Certificate::class);
     }
 }

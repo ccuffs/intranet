@@ -23,6 +23,14 @@
                     <x-jet-nav-link href="{{ route('aura.show') }}" :active="request()->routeIs('aura.show')">
                         {{ __('Aura') }}
                     </x-jet-nav-link>
+
+                    <x-jet-nav-link href="{{ route('certificates.show') }}" :active="request()->routeIs('certificates.show')">
+                        {{ __('Certificados') }}
+                    </x-jet-nav-link>
+
+                    <x-jet-nav-link href="{{ route('ru.show') }}" :active="request()->routeIs('ru.show')">
+                        {{ __('Cardápio R.U.') }}
+                    </x-jet-nav-link>
                 </div>
             </div>
 
