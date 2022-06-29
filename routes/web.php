@@ -31,10 +31,13 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('/aura', [AuraController::class, 'show'])
             ->name('aura.show');
 
-        // Aura
+        // Certificates
         Route::get('/certificates', [CertificatesController::class, 'show'])
             ->name('certificates.show');
 
+        // RU
+        Route::get('/ru', [\App\Http\Controllers\RuController::class, 'show'])
+            ->name('ru.show');
     });
 });
 
