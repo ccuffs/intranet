@@ -38,7 +38,6 @@ Route::group(['middleware' => ['web']], function () {
         // RU
         Route::get('/ru', [\App\Http\Controllers\RuController::class, 'show'])
             ->name('ru.show');
-
     });
 });
 
